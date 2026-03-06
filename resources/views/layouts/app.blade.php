@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-light">
-<div class="d-md-flex min-vh-100">
+<div class="d-md-flex app-shell">
     <aside class="sidebar bg-dark text-white p-3">
         <div class="mb-4 pb-3 border-bottom border-secondary-subtle">
             <h1 class="h5 mb-1">Sistem Inventaris Aset</h1>
@@ -30,7 +30,7 @@
         </nav>
     </aside>
 
-    <main class="flex-grow-1 p-3 p-md-4">
+    <main class="flex-grow-1 p-3 p-md-4 app-main">
         <nav class="navbar navbar-expand navbar-light bg-white rounded-3 border shadow-sm mb-3 px-3">
             <span class="navbar-text text-muted small">Sistem Informasi Inventaris Aset</span>
             <ul class="navbar-nav ms-auto">
@@ -82,5 +82,36 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.innerWidth <= 767.98) {
+        return;
+    }
+
+    function bindWheelScroll(element) {
+        element.addEventListener('wheel', function (event) {
+            event.preventDefault();
+            element.scrollTop += event.deltaY;
+        }, { passive: false });
+    }
+
+    var sidebar = document.querySelector('.sidebar');
+    var tables = document.querySelectorAll('.app-main .table-responsive');
+
+    if (sidebar) {
+        bindWheelScroll(sidebar);
+    }
+
+    tables.forEach(function (table) {
+        bindWheelScroll(table);
+    });
+
+    document.querySelectorAll('.app-main .table-responsive').forEach(function (table) {
+        table.addEventListener('wheel', function (event) {
+            event.stopPropagation();
+        }, { passive: true });
+    });
+});
+</script>
 </body>
 </html>

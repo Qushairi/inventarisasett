@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAsetRequest;
 use App\Models\Aset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AsetController extends Controller
 {
@@ -26,7 +27,13 @@ class AsetController extends Controller
 
     public function store(StoreAsetRequest $request): JsonResponse
     {
-        $aset = Aset::query()->create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('aset-photos', 'public');
+        }
+
+        $aset = Aset::query()->create($data);
 
         return response()->json($aset->load(['kategori', 'lokasi']), 201);
     }
@@ -38,13 +45,29 @@ class AsetController extends Controller
 
     public function update(UpdateAsetRequest $request, Aset $aset): JsonResponse
     {
-        $aset->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('foto')) {
+            if ($aset->foto) {
+                Storage::disk('public')->delete($aset->foto);
+            }
+
+            $data['foto'] = $request->file('foto')->store('aset-photos', 'public');
+        } else {
+            unset($data['foto']);
+        }
+
+        $aset->update($data);
 
         return response()->json($aset->fresh(['kategori', 'lokasi']));
     }
 
     public function destroy(Aset $aset): JsonResponse
     {
+        if ($aset->foto) {
+            Storage::disk('public')->delete($aset->foto);
+        }
+
         $aset->delete();
 
         return response()->json(['message' => 'Aset berhasil dihapus.']);

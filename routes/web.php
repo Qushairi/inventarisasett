@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/aset', [AsetController::class, 'index'])->name('aset.index');
+    Route::get('/aset/{aset}', [AsetController::class, 'show'])->name('aset.show');
     Route::post('/aset', [AsetController::class, 'store'])->name('aset.store');
     Route::put('/aset/{aset}', [AsetController::class, 'update'])->name('aset.update');
     Route::delete('/aset/{aset}', [AsetController::class, 'destroy'])->name('aset.destroy');
