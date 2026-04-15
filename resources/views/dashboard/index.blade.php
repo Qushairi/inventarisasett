@@ -5,6 +5,13 @@
 
 @push('styles')
 <style>
+<<<<<<< HEAD
+=======
+    .flexy-wrap {
+        padding-top: 0.5rem;
+    }
+
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
     .flexy-card {
         border: 0;
         border-radius: 12px;
@@ -56,6 +63,24 @@
         color: #1a2b4f;
     }
 
+<<<<<<< HEAD
+=======
+    .asset-summary-table th {
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        color: #6f7f97;
+        border-bottom-color: #edf1f7;
+    }
+
+    .asset-summary-table td {
+        color: #1a2b4f;
+        font-weight: 600;
+        vertical-align: middle;
+        border-bottom-color: #edf1f7;
+    }
+
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
     @media (max-width: 1199.98px) {
         .chart-shell {
             height: 240px;
@@ -74,7 +99,10 @@
         'Total Aset',
         'Aset Tersedia',
         'Aset Dipinjam',
+<<<<<<< HEAD
         'Aset Maintenance',
+=======
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
         'Menunggu Persetujuan',
         'Menunggu Verifikasi',
     ];
@@ -82,7 +110,10 @@
         (int) ($stats['total_aset'] ?? 0),
         (int) ($stats['aset_tersedia'] ?? 0),
         (int) ($stats['aset_dipinjam'] ?? 0),
+<<<<<<< HEAD
         (int) ($stats['maintenance'] ?? 0),
+=======
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
         (int) ($stats['peminjaman_menunggu'] ?? 0),
         (int) ($stats['pengembalian_menunggu'] ?? 0),
     ];
@@ -94,12 +125,27 @@
     ];
 @endphp
 
+<<<<<<< HEAD
     <div class="row g-4 pt-2">
         <div class="col-xl-6">
             <div class="card flexy-card h-100">
                 <div class="card-body p-4 p-xl-5">
                     <h4 class="flexy-title">Overview Aset</h4>
                     <p class="flexy-subtitle">Visualisasi jumlah inventaris berdasarkan data dashboard saat ini</p>
+=======
+    <div class="flexy-wrap">
+    <div class="row g-4">
+        <div class="col-xl-6">
+            <div class="card flexy-card h-100">
+                <div class="card-body p-4 p-xl-5">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                        <div>
+                            <h4 class="flexy-title">Sales Overview</h4>
+                            <p class="flexy-subtitle">Visualisasi jumlah inventaris berdasarkan data dashboard saat ini</p>
+                        </div>
+                        <span class="badge text-bg-light">Bar Chart</span>
+                    </div>
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
 
                     <div class="chart-shell">
                         <canvas id="salesOverviewChart"></canvas>
@@ -111,8 +157,17 @@
         <div class="col-xl-6">
             <div class="card flexy-card h-100">
                 <div class="card-body p-4 p-xl-5">
+<<<<<<< HEAD
                     <h4 class="flexy-title">Kondisi Aset</h4>
                     <p class="flexy-subtitle">Diagram kondisi inventaris saat ini</p>
+=======
+                    <div class="mb-3">
+                        <div>
+                            <h4 class="flexy-title">Kondisi Aset</h4>
+                            <p class="flexy-subtitle">Diagram kondisi inventaris saat ini</p>
+                        </div>
+                    </div>
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
 
                     <div class="mini-chart-shell">
                         <canvas id="assetConditionChart"></canvas>
@@ -121,6 +176,10 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
     <div class="row g-3 mt-1">
         <div class="col-md-6 col-xl-4">
             <div class="card metric-card">
@@ -147,6 +206,54 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card flexy-card">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+                        <div>
+                            <h5 class="mb-1" style="color:#12213f;font-weight:700;">Ringkasan Data Aset</h5>
+                            <p class="mb-0 text-muted">Tabel jumlah aset utama pada dashboard</p>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table asset-summary-table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width:72px;">No</th>
+                                    <th>Keterangan</th>
+                                    <th class="text-end">Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Total Aset</td>
+                                    <td class="text-end">{{ $stats['total_aset'] ?? 0 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Aset Tersedia</td>
+                                    <td class="text-end text-success">{{ $stats['aset_tersedia'] ?? 0 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Aset Dipinjam</td>
+                                    <td class="text-end text-warning">{{ $stats['aset_dipinjam'] ?? 0 }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
 @endsection
 
 @push('scripts')
@@ -169,7 +276,10 @@
                         '#2c56c0',
                         '#2ebf74',
                         '#f4c20d',
+<<<<<<< HEAD
                         '#ef6c00',
+=======
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
                         '#20a9f5',
                         '#7e57c2'
                     ],

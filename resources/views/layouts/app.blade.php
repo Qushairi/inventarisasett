@@ -189,9 +189,15 @@
             padding: 12px 16px;
             margin: 0 -22px 18px;
             border-radius: 0;
+<<<<<<< HEAD
             background: #e7f1ff;
             border-bottom: 1px solid rgba(114, 153, 215, 0.26);
             box-shadow: 0 12px 26px rgba(68, 110, 178, 0.1);
+=======
+            background: rgba(255, 255, 255, 0.78);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+>>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
