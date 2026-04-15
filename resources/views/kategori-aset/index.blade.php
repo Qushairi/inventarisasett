@@ -1,19 +1,36 @@
 @extends('layouts.app')
 
+@section('page_title', 'Data Kategori Aset')
+@section('page_subtitle', 'Kelola kategori untuk setiap aset')
+
 @section('content')
-<div class="mb-4">
-    <h2 class="h3 mb-0">Data Kategori Aset</h2>
+<div class="d-flex justify-content-end mb-3">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahKategoriModal">
+        <i class="bi bi-plus-circle me-1"></i>Tambah Kategori
+    </button>
 </div>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-        <form action="{{ route('kategori-aset.store') }}" method="post" class="row g-3">
-            @csrf
-            <div class="col-md-4"><input name="nama" placeholder="Nama kategori" class="form-control" required></div>
-            <div class="col-md-4"><input name="kode" placeholder="Kode kategori" class="form-control" required></div>
-            <div class="col-md-4"><input name="deskripsi" placeholder="Deskripsi" class="form-control"></div>
-            <div class="col-12"><button class="btn btn-primary">Tambah Kategori</button></div>
-        </form>
+<div class="modal fade" id="tambahKategoriModal" tabindex="-1" aria-labelledby="tambahKategoriModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahKategoriModalLabel">Tambah Kategori</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('kategori-aset.store') }}" method="post" class="row g-3">
+                    @csrf
+                    <input type="hidden" name="_modal" value="tambahKategoriModal">
+                    <div class="col-md-4"><input name="nama" value="{{ old('nama') }}" placeholder="Nama kategori" class="form-control" required></div>
+                    <div class="col-md-4"><input name="kode" value="{{ old('kode') }}" placeholder="Kode kategori" class="form-control" required></div>
+                    <div class="col-md-4"><input name="deskripsi" value="{{ old('deskripsi') }}" placeholder="Deskripsi" class="form-control"></div>
+                    <div class="col-12 d-flex justify-content-end gap-2 mt-2">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -50,3 +67,15 @@
 
 <div class="mt-3">{{ $kategori->links() }}</div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const targetModal = @json(old('_modal'));
+        if (targetModal !== 'tambahKategoriModal') return;
+        const modalEl = document.getElementById(targetModal);
+        if (!modalEl || typeof bootstrap === 'undefined') return;
+        new bootstrap.Modal(modalEl).show();
+    });
+</script>
+@endpush

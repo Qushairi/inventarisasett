@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+@section('page_title', 'Detail Aset')
+@section('page_subtitle', 'Informasi lengkap aset inventaris')
+
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="h3 mb-0">Detail Aset</h2>
+<div class="d-flex justify-content-end align-items-center mb-4">
     <a href="{{ route('aset.index') }}" class="btn btn-outline-secondary">Kembali</a>
 </div>
 

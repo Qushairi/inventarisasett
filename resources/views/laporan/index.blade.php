@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="mb-4">
-    <h2 class="h3 mb-0">Laporan Inventaris Aset</h2>
-</div>
+@section('page_title', 'Laporan Inventaris Aset')
+@section('page_subtitle', 'Ringkasan data dan unduh laporan PDF')
 
+@section('content')
 <div class="mb-4 d-flex flex-wrap gap-2">
     <a href="{{ route('laporan.pdf.inventaris') }}" class="btn btn-outline-primary">Download PDF Inventaris</a>
     <a href="{{ route('laporan.pdf.peminjaman') }}" class="btn btn-outline-success">Download PDF Peminjaman</a>

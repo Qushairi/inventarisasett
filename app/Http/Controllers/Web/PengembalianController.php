@@ -10,6 +10,7 @@ use App\Models\PengembalianAset;
 use App\Services\PengembalianService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class PengembalianController extends Controller
@@ -20,11 +21,20 @@ class PengembalianController extends Controller
 
     public function index()
     {
-        $pengembalian = PengembalianAset::query()->with(['peminjaman.aset', 'beritaAcara', 'verifier'])->latest()->paginate(10);
+        $user = auth()->user();
+        $isAdmin = $user?->role === 'admin';
+
+        $pengembalian = PengembalianAset::query()
+            ->with(['peminjaman.aset', 'beritaAcara', 'verifier'])
+            ->when(! $isAdmin, fn ($query) => $query->whereHas('peminjaman', fn ($q) => $q->where('pegawai_id', $user?->id)))
+            ->latest()
+            ->paginate(10);
+
         $peminjamanAktif = PeminjamanAset::query()
             ->with('aset')
             ->where('status', 'dipinjam')
             ->whereDoesntHave('pengembalian')
+            ->when(! $isAdmin, fn ($query) => $query->where('pegawai_id', $user?->id))
             ->latest()
             ->get();
 
@@ -33,7 +43,21 @@ class PengembalianController extends Controller
 
     public function store(StorePengembalianRequest $request)
     {
-        $this->service->create($request->validated());
+        $payload = $request->validated();
+        $user = $request->user();
+
+        if ($user?->role === 'pegawai') {
+            $request->validate([
+                'peminjaman_aset_id' => [
+                    'required',
+                    Rule::exists('peminjaman_aset', 'id')
+                        ->where('pegawai_id', $user->id)
+                        ->where('status', 'dipinjam'),
+                ],
+            ]);
+        }
+
+        $this->service->create($payload);
 
         return back()->with('success', 'Pengembalian berhasil diajukan.');
     }
@@ -51,6 +75,10 @@ class PengembalianController extends Controller
 
     public function beritaAcaraPdf(PengembalianAset $pengembalian): Response
     {
+        if (auth()->user()?->role === 'pegawai') {
+            abort_unless((int) $pengembalian->peminjaman?->pegawai_id === (int) auth()->id(), 403);
+        }
+
         $pengembalian->load([
             'peminjaman.aset.kategori',
             'peminjaman.pegawai',
