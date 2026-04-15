@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page_title', 'Dashboard Monitoring Aset')
+@section('page_subtitle', 'Ringkasan kondisi inventaris Disdik Kabupaten Bengkalis')
+
 @section('content')
 <div class="mb-4">
     <h2 class="h3 mb-1">Dashboard Monitoring Aset</h2>
