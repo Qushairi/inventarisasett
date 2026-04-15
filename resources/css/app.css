@@ -2,8 +2,6 @@ html,
 body {
     height: 100%;
 }
-<<<<<<< HEAD
-=======
 
 body.dashboard-page {
     margin: 0;
@@ -245,4 +243,3 @@ body.dashboard-page {
         font-size: 22px;
     }
 }
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10

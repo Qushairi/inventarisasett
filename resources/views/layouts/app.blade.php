@@ -189,15 +189,9 @@
             padding: 12px 16px;
             margin: 0 -22px 18px;
             border-radius: 0;
-<<<<<<< HEAD
             background: #e7f1ff;
             border-bottom: 1px solid rgba(114, 153, 215, 0.26);
             box-shadow: 0 12px 26px rgba(68, 110, 178, 0.1);
-=======
-            background: rgba(255, 255, 255, 0.78);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
@@ -344,6 +338,198 @@
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
         }
 
+        .data-page-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .data-page-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .data-page-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            padding: 0.45rem 0.85rem;
+            border-radius: 999px;
+            background: #edf4ff;
+            color: #1f4eb4;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .data-page-summary-text {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .data-table-card {
+            overflow: hidden;
+        }
+
+        .data-table {
+            min-width: 760px;
+        }
+
+        .data-table.data-table-md {
+            min-width: 760px;
+        }
+
+        .data-table.data-table-lg {
+            min-width: 920px;
+        }
+
+        .data-table.data-table-xl {
+            min-width: 1120px;
+        }
+
+        .data-table-entity {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .data-table-media {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #eff5ff 0%, #dbeafe 100%);
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.12);
+        }
+
+        .data-table-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .data-table-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #102a43;
+            margin-bottom: 0.2rem;
+        }
+
+        .data-table-meta {
+            color: #7b8794;
+            font-size: 0.82rem;
+        }
+
+        .data-table-note {
+            color: #7b8794;
+            font-size: 0.82rem;
+            margin-top: 0.18rem;
+        }
+
+        .data-table-plain {
+            font-weight: 600;
+            color: #0f172a;
+            word-break: break-word;
+        }
+
+        .data-table-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.55rem;
+            flex-wrap: wrap;
+        }
+
+        .data-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.34rem 0.68rem;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            border: 1px solid transparent;
+            line-height: 1.1;
+            text-transform: capitalize;
+        }
+
+        .data-chip-primary {
+            background: #edf4ff;
+            color: #1f4eb4;
+            border-color: #cfe0ff;
+        }
+
+        .data-chip-success {
+            background: #ecfdf3;
+            color: #027a48;
+            border-color: #abefc6;
+        }
+
+        .data-chip-warning {
+            background: #fff7e8;
+            color: #b54708;
+            border-color: #fcd39d;
+        }
+
+        .data-chip-danger {
+            background: #fef3f2;
+            color: #b42318;
+            border-color: #fecdca;
+        }
+
+        .data-chip-info {
+            background: #eff8ff;
+            color: #175cd3;
+            border-color: #b2ddff;
+        }
+
+        .data-chip-neutral {
+            background: #f8fafc;
+            color: #334155;
+            border-color: #e2e8f0;
+        }
+
+        .data-table-empty {
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .data-table-empty i {
+            font-size: 1.9rem;
+            color: #94a3b8;
+            display: inline-block;
+            margin-bottom: 0.65rem;
+        }
+
+        .data-table-empty-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.35rem;
+        }
+
+        .data-table-empty-text {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .modal-field-label {
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.45rem;
+        }
+
         @media (max-width: 991.98px) {
             body {
                 overflow: auto;
@@ -385,6 +571,10 @@
                 height: auto;
                 overflow: visible;
             }
+
+            .data-table-actions {
+                justify-content: flex-start;
+            }
         }
     </style>
     @stack('styles')
@@ -419,7 +609,6 @@
             @endif
             <a href="{{ route('profile.index') }}" class="{{ request()->routeIs('profile.*') ? 'active' : '' }}"><i class="bi bi-person-circle"></i>Profile</a>
         </nav>
-
     </aside>
 
     <main class="app-main">

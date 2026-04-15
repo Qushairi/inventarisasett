@@ -3,7 +3,6 @@
 @section('page_title', 'Data Pegawai')
 @section('page_subtitle', 'Kelola akun pegawai (dibuat oleh admin)')
 
-<<<<<<< HEAD
 @push('styles')
 <style>
     .pegawai-toolbar {
@@ -173,10 +172,6 @@
         <p class="pegawai-summary-text">Daftar akun pegawai yang dapat mengakses sistem inventaris aset.</p>
     </div>
 
-=======
-@section('content')
-<div class="d-flex justify-content-end mb-3">
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahPegawaiModal">
         <i class="bi bi-plus-circle me-1"></i>Tambah Pegawai
     </button>
@@ -193,7 +188,6 @@
                 <form action="{{ route('pegawai.store') }}" method="post" class="row g-3">
                     @csrf
                     <input type="hidden" name="_modal" value="tambahPegawaiModal">
-<<<<<<< HEAD
                     <div class="col-md-4">
                         <label class="pegawai-modal-label">Nama Pegawai</label>
                         <input name="name" value="{{ old('name') }}" placeholder="Nama pegawai" class="form-control" required>
@@ -206,11 +200,6 @@
                         <label class="pegawai-modal-label">Password</label>
                         <input type="password" name="password" placeholder="Password (min. 8 karakter)" class="form-control" required>
                     </div>
-=======
-                    <div class="col-md-4"><input name="name" value="{{ old('name') }}" placeholder="Nama pegawai" class="form-control" required></div>
-                    <div class="col-md-4"><input type="email" name="email" value="{{ old('email') }}" placeholder="Email" class="form-control" required></div>
-                    <div class="col-md-4"><input type="password" name="password" placeholder="Password (min. 8 karakter)" class="form-control" required></div>
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
                     <div class="col-12 d-flex justify-content-end gap-2 mt-2">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
                         <button class="btn btn-primary">Simpan</button>
@@ -221,7 +210,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
 <div class="card shadow-sm pegawai-card">
     <div class="table-responsive">
         <table class="table table-hover pegawai-table mb-0">
@@ -231,21 +219,10 @@
                     <th>Email</th>
                     <th>Terdaftar</th>
                     <th class="text-end">Aksi</th>
-=======
-<div class="card shadow-sm">
-    <div class="table-responsive">
-        <table class="table table-striped table-hover mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Aksi</th>
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
                 </tr>
             </thead>
             <tbody>
                 @forelse ($pegawai as $item)
-<<<<<<< HEAD
                     @php
                         $initials = collect(preg_split('/\s+/', trim($item->name ?? '')))
                             ->filter()
@@ -293,41 +270,17 @@
                                     <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Hapus akun pegawai ini?')">
                                         <i class="bi bi-trash me-1"></i>Hapus
                                     </button>
-=======
-                    <tr>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td>
-                            <div class="d-flex flex-wrap gap-2">
-                                <form action="{{ route('pegawai.update', $item) }}" method="post" class="d-flex flex-wrap gap-2">
-                                    @csrf
-                                    @method('PUT')
-                                    <input name="name" value="{{ $item->name }}" class="form-control form-control-sm" style="max-width: 180px;" required>
-                                    <input type="email" name="email" value="{{ $item->email }}" class="form-control form-control-sm" style="max-width: 220px;" required>
-                                    <input type="password" name="password" placeholder="Password baru (opsional)" class="form-control form-control-sm" style="max-width: 220px;">
-                                    <button class="btn btn-sm btn-warning">Update</button>
-                                </form>
-
-                                <form action="{{ route('pegawai.destroy', $item) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus akun pegawai ini?')">Hapus</button>
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
                                 </form>
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-<<<<<<< HEAD
                         <td colspan="4" class="pegawai-empty">
                             <i class="bi bi-people"></i>
                             <div class="pegawai-empty-title">Belum ada data pegawai</div>
                             <p class="pegawai-empty-text">Tambahkan akun pegawai baru agar dapat mengakses sistem inventaris.</p>
                         </td>
-=======
-                        <td colspan="3" class="text-center text-muted py-3">Belum ada data pegawai.</td>
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
                     </tr>
                 @endforelse
             </tbody>
@@ -336,7 +289,6 @@
 </div>
 
 <div class="mt-3">{{ $pegawai->links() }}</div>
-<<<<<<< HEAD
 
 @foreach ($pegawai as $item)
     @php
@@ -393,19 +345,13 @@
         </div>
     </div>
 @endforeach
-=======
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
 @endsection
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const targetModal = @json(old('_modal'));
-<<<<<<< HEAD
         if (!targetModal) return;
-=======
-        if (targetModal !== 'tambahPegawaiModal') return;
->>>>>>> 6b6d832d8360eb82d942c61e6349e16a5cb61b10
         const modalEl = document.getElementById(targetModal);
         if (!modalEl || typeof bootstrap === 'undefined') return;
         new bootstrap.Modal(modalEl).show();
