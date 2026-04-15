@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
+@section('page_title', 'Profile')
+@section('page_subtitle', 'Informasi akun pengguna')
+
 @section('content')
 <div class="card shadow-sm">
     <div class="card-body">
-        <h2 class="h4 mb-3">Profile</h2>
         <div class="row g-4 mb-4">
             <div class="col-md-3 text-center">
                 @if ($user->foto)

@@ -10,6 +10,9 @@ use App\Models\Aset;
 use App\Models\PeminjamanAset;
 use App\Models\User;
 use App\Services\PeminjamanService;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class PeminjamanController extends Controller
 {
@@ -19,9 +22,19 @@ class PeminjamanController extends Controller
 
     public function index()
     {
-        $peminjaman = PeminjamanAset::query()->with(['aset', 'pegawai', 'approver'])->latest()->paginate(10);
+        $user = auth()->user();
+        $isAdmin = $user?->role === 'admin';
+
+        $peminjaman = PeminjamanAset::query()
+            ->with(['aset', 'pegawai', 'approver'])
+            ->when(! $isAdmin, fn ($query) => $query->where('pegawai_id', $user?->id))
+            ->latest()
+            ->paginate(10);
+
         $asetTersedia = Aset::query()->where('status', 'tersedia')->orderBy('nama')->get();
-        $pegawai = User::query()->where('role', 'pegawai')->orderBy('name')->get();
+        $pegawai = $isAdmin
+            ? User::query()->where('role', 'pegawai')->orderBy('name')->get()
+            : collect();
 
         return view('peminjaman.index', compact('peminjaman', 'asetTersedia', 'pegawai'));
     }
@@ -29,7 +42,13 @@ class PeminjamanController extends Controller
     public function store(StorePeminjamanRequest $request)
     {
         $data = $request->validated();
-        $data['pegawai_id'] = $data['pegawai_id'] ?? $request->user()?->id;
+        $user = $request->user();
+
+        if ($user?->role === 'pegawai') {
+            $data['pegawai_id'] = $user->id;
+        } else {
+            $data['pegawai_id'] = $data['pegawai_id'] ?? $user?->id;
+        }
 
         $this->service->create($data);
 
@@ -52,5 +71,30 @@ class PeminjamanController extends Controller
         );
 
         return back()->with('success', 'Peminjaman berhasil ditolak.');
+    }
+
+    public function suratPdf(PeminjamanAset $peminjaman): Response
+    {
+        if (auth()->user()?->role === 'pegawai') {
+            abort_unless((int) $peminjaman->pegawai_id === (int) auth()->id(), 403);
+        }
+
+        $peminjaman->load(['aset.kategori', 'pegawai', 'approver']);
+
+        if (! in_array($peminjaman->status, ['approved', 'dipinjam'], true)) {
+            throw ValidationException::withMessages([
+                'peminjaman' => 'Surat peminjaman hanya tersedia untuk peminjaman yang sudah disetujui.',
+            ]);
+        }
+
+        $pdf = Pdf::loadView('peminjaman.pdf.surat-peminjaman', [
+            'peminjaman' => $peminjaman,
+            'aset' => $peminjaman->aset,
+            'pegawai' => $peminjaman->pegawai,
+            'approver' => $peminjaman->approver,
+            'printedAt' => now(),
+        ])->setPaper('a4', 'portrait');
+
+        return $pdf->download('surat-peminjaman-aset-' . $peminjaman->id . '.pdf');
     }
 }
